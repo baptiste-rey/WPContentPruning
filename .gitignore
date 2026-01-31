@@ -1,0 +1,28 @@
+# Fichiers système
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Dépendances (si ajoutées plus tard)
+node_modules/
+vendor/
+
+# Archives
+*.zip
+*.tar.gz
+
+# Environnement
+.env
+
+# Logs
+*.log
+error_log
+
+# Fichiers WordPress locaux
+wp-config.php

@@ -1,0 +1,184 @@
+/* Admin styles */
+.wrap.olm-wrap {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.olm-scan-progress-bar, .olm-internal-scan-progress-bar {
+    width: 100%;
+    background-color: #f0f0f1;
+    height: 20px;
+    border-radius: 3px;
+    margin-top: 10px;
+    display: none;
+}
+.olm-scan-progress-value, .olm-internal-scan-progress-value {
+    width: 0%;
+    height: 100%;
+    background-color: #2271b1;
+    transition: width 0.3s ease;
+}
+
+/* View links button */
+.olm-view-links {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.olm-view-links:hover {
+    background-color: #2271b1;
+    color: white;
+    border-color: #2271b1;
+}
+
+.olm-view-links .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Modal styles */
+.olm-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100000;
+    overflow-y: auto;
+}
+
+.olm-modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 900px;
+    margin: 50px auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.olm-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #2271b1;
+    color: white;
+}
+
+.olm-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+.olm-modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.olm-modal-close:hover {
+    opacity: 1;
+}
+
+.olm-modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.olm-modal-footer {
+    padding: 15px 20px;
+    background: #f0f0f1;
+    text-align: right;
+    border-top: 1px solid #ddd;
+}
+
+/* Internal links table */
+#olm-internal-links-table {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#olm-internal-links-table thead th {
+    background: #f0f0f1;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+}
+
+#olm-internal-links-table tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+#olm-internal-links-table tbody tr:hover {
+    background-color: #f7f7f7;
+}
+
+#olm-internal-links-table .olm-link-number {
+    font-weight: 600;
+    color: #666;
+    text-align: center;
+}
+
+#olm-internal-links-table .olm-link-url {
+    word-break: break-all;
+}
+
+#olm-internal-links-table .olm-link-url a {
+    color: #2271b1;
+    text-decoration: none;
+}
+
+#olm-internal-links-table .olm-link-url a:hover {
+    text-decoration: underline;
+}
+
+#olm-internal-links-table .olm-link-anchor {
+    font-style: italic;
+    color: #555;
+}
+
+#olm-internal-links-table .olm-link-anchor.empty {
+    color: #999;
+    font-style: normal;
+}
+
+/* Statistics boxes */
+.olm-stats-wrapper {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.olm-stat-box {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.olm-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,.1) !important;
+}
