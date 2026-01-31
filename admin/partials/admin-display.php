@@ -1,27 +1,32 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
 <div class="wrap olm-wrap">
     <h1 class="wp-heading-inline"><?php echo esc_html( get_admin_page_title() ); ?></h1>
-    
+
     <hr class="wp-header-end">
 
     <?php
-    $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'outbound';
-    $page_name = isset( $_GET['page'] ) ? $_GET['page'] : 'outbound-links-manager';
+    $wpcp_active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'outbound';
+    $wpcp_page_name = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : 'outbound-links-manager';
     ?>
 
     <h2 class="nav-tab-wrapper">
-        <a href="?page=<?php echo esc_attr( $page_name ); ?>&tab=outbound" class="nav-tab <?php echo $active_tab == 'outbound' ? 'nav-tab-active' : ''; ?>">
+        <a href="?page=<?php echo esc_attr( $wpcp_page_name ); ?>&tab=outbound" class="nav-tab <?php echo $wpcp_active_tab == 'outbound' ? 'nav-tab-active' : ''; ?>">
             Liens sortants
         </a>
-        <a href="?page=<?php echo esc_attr( $page_name ); ?>&tab=internal" class="nav-tab <?php echo $active_tab == 'internal' ? 'nav-tab-active' : ''; ?>">
+        <a href="?page=<?php echo esc_attr( $wpcp_page_name ); ?>&tab=internal" class="nav-tab <?php echo $wpcp_active_tab == 'internal' ? 'nav-tab-active' : ''; ?>">
             Liens internes
         </a>
-        <a href="?page=<?php echo esc_attr( $page_name ); ?>&tab=incoming" class="nav-tab <?php echo $active_tab == 'incoming' ? 'nav-tab-active' : ''; ?>">
+        <a href="?page=<?php echo esc_attr( $wpcp_page_name ); ?>&tab=incoming" class="nav-tab <?php echo $wpcp_active_tab == 'incoming' ? 'nav-tab-active' : ''; ?>">
             Liens entrants
         </a>
-        <a href="?page=<?php echo esc_attr( $page_name ); ?>&tab=traffic" class="nav-tab <?php echo $active_tab == 'traffic' ? 'nav-tab-active' : ''; ?>">
+        <a href="?page=<?php echo esc_attr( $wpcp_page_name ); ?>&tab=traffic" class="nav-tab <?php echo $wpcp_active_tab == 'traffic' ? 'nav-tab-active' : ''; ?>">
             Trafic Page
         </a>
-        <a href="?page=<?php echo esc_attr( $page_name ); ?>&tab=settings" class="nav-tab <?php echo $active_tab == 'settings' ? 'nav-tab-active' : ''; ?>">
+        <a href="?page=<?php echo esc_attr( $wpcp_page_name ); ?>&tab=settings" class="nav-tab <?php echo $wpcp_active_tab == 'settings' ? 'nav-tab-active' : ''; ?>">
             Paramètres
         </a>
     </h2>
@@ -29,18 +34,18 @@
     <?php
     // Afficher les messages de suppression en masse
     if ( isset( $_GET['bulk_delete_success'] ) ) {
-        $success_count = intval( $_GET['bulk_delete_success'] );
-        $error_count = isset( $_GET['bulk_delete_error'] ) ? intval( $_GET['bulk_delete_error'] ) : 0;
+        $wpcp_success_count = intval( $_GET['bulk_delete_success'] );
+        $wpcp_error_count = isset( $_GET['bulk_delete_error'] ) ? intval( $_GET['bulk_delete_error'] ) : 0;
 
-        if ( $success_count > 0 ) {
+        if ( $wpcp_success_count > 0 ) {
             echo '<div class="notice notice-success is-dismissible"><p>';
-            echo sprintf( '%d lien(s) supprimé(s) avec succès.', $success_count );
+            echo esc_html( sprintf( '%d lien(s) supprime(s) avec succes.', $wpcp_success_count ) );
             echo '</p></div>';
         }
 
-        if ( $error_count > 0 ) {
+        if ( $wpcp_error_count > 0 ) {
             echo '<div class="notice notice-error is-dismissible"><p>';
-            echo sprintf( '%d erreur(s) rencontrée(s) lors de la suppression.', $error_count );
+            echo esc_html( sprintf( '%d erreur(s) rencontree(s) lors de la suppression.', $wpcp_error_count ) );
             echo '</p></div>';
         }
     }
@@ -48,122 +53,122 @@
 
     <!-- Statistiques -->
     <div class="olm-stats-wrapper" style="margin: 20px 0; display: flex; gap: 15px; flex-wrap: wrap;">
-        <?php if ( $active_tab == 'outbound' ): ?>
+        <?php if ( $wpcp_active_tab == 'outbound' ): ?>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $stats['total_outbound_links'] ); ?></div>
-                <div style="color: #646970; font-size: 13px; margin-top: 5px;">Liens sortants trouvés</div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $stats['total_outbound_links'] ) ); ?></div>
+                <div style="color: #646970; font-size: 13px; margin-top: 5px;">Liens sortants trouves</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $stats['posts_with_outbound'] ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $stats['posts_with_outbound'] ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages/articles avec liens sortants</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $stats['unique_outbound_urls'] ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $stats['unique_outbound_urls'] ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Domaines externes uniques</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #50575e;"><?php echo number_format_i18n( $stats['total_posts_site'] ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #50575e;"><?php echo esc_html( number_format_i18n( $stats['total_posts_site'] ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Total pages/articles sur le site</div>
             </div>
-        <?php elseif ( $active_tab == 'traffic' ): ?>
+        <?php elseif ( $wpcp_active_tab == 'traffic' ): ?>
             <?php
-            $traffic_total = isset( $stats['traffic_total_pages'] ) ? $stats['traffic_total_pages'] : 0;
-            $traffic_with = isset( $stats['traffic_pages_with_impressions'] ) ? $stats['traffic_pages_with_impressions'] : 0;
-            $traffic_without = isset( $stats['traffic_pages_without_impressions'] ) ? $stats['traffic_pages_without_impressions'] : 0;
-            $traffic_clicks = isset( $stats['traffic_total_clicks'] ) ? $stats['traffic_total_clicks'] : 0;
-            $traffic_impressions = isset( $stats['traffic_total_impressions'] ) ? $stats['traffic_total_impressions'] : 0;
-            $pct_with = $traffic_total > 0 ? round( ( $traffic_with / $traffic_total ) * 100, 1 ) : 0;
-            $pct_without = $traffic_total > 0 ? round( ( $traffic_without / $traffic_total ) * 100, 1 ) : 0;
+            $wpcp_traffic_total = isset( $stats['traffic_total_pages'] ) ? $stats['traffic_total_pages'] : 0;
+            $wpcp_traffic_with = isset( $stats['traffic_pages_with_impressions'] ) ? $stats['traffic_pages_with_impressions'] : 0;
+            $wpcp_traffic_without = isset( $stats['traffic_pages_without_impressions'] ) ? $stats['traffic_pages_without_impressions'] : 0;
+            $wpcp_traffic_clicks = isset( $stats['traffic_total_clicks'] ) ? $stats['traffic_total_clicks'] : 0;
+            $wpcp_traffic_impressions = isset( $stats['traffic_total_impressions'] ) ? $stats['traffic_total_impressions'] : 0;
+            $wpcp_pct_with = $wpcp_traffic_total > 0 ? round( ( $wpcp_traffic_with / $wpcp_traffic_total ) * 100, 1 ) : 0;
+            $wpcp_pct_without = $wpcp_traffic_total > 0 ? round( ( $wpcp_traffic_without / $wpcp_traffic_total ) * 100, 1 ) : 0;
             ?>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $traffic_total ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $wpcp_traffic_total ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages dans Search Console</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #46b450;"><?php echo number_format_i18n( $traffic_with ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #46b450;"><?php echo esc_html( number_format_i18n( $wpcp_traffic_with ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages avec impressions</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #dc3232;"><?php echo number_format_i18n( $traffic_without ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #dc3232;"><?php echo esc_html( number_format_i18n( $wpcp_traffic_without ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages sans impressions</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $traffic_clicks ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $wpcp_traffic_clicks ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Clics totaux</div>
             </div>
-        <?php elseif ( $active_tab == 'incoming' ): ?>
+        <?php elseif ( $wpcp_active_tab == 'incoming' ): ?>
             <?php
-            $inc_total = isset( $stats['incoming_total_pages'] ) ? $stats['incoming_total_pages'] : 0;
-            $inc_with = isset( $stats['incoming_pages_with'] ) ? $stats['incoming_pages_with'] : 0;
-            $inc_without = isset( $stats['incoming_pages_without'] ) ? $stats['incoming_pages_without'] : 0;
-            $inc_total_links = isset( $stats['incoming_total_links'] ) ? $stats['incoming_total_links'] : 0;
-            $inc_pct_with = $inc_total > 0 ? round( ( $inc_with / $inc_total ) * 100, 1 ) : 0;
-            $inc_pct_without = $inc_total > 0 ? round( ( $inc_without / $inc_total ) * 100, 1 ) : 0;
+            $wpcp_inc_total = isset( $stats['incoming_total_pages'] ) ? $stats['incoming_total_pages'] : 0;
+            $wpcp_inc_with = isset( $stats['incoming_pages_with'] ) ? $stats['incoming_pages_with'] : 0;
+            $wpcp_inc_without = isset( $stats['incoming_pages_without'] ) ? $stats['incoming_pages_without'] : 0;
+            $wpcp_inc_total_links = isset( $stats['incoming_total_links'] ) ? $stats['incoming_total_links'] : 0;
+            $wpcp_inc_pct_with = $wpcp_inc_total > 0 ? round( ( $wpcp_inc_with / $wpcp_inc_total ) * 100, 1 ) : 0;
+            $wpcp_inc_pct_without = $wpcp_inc_total > 0 ? round( ( $wpcp_inc_without / $wpcp_inc_total ) * 100, 1 ) : 0;
             ?>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $inc_total ); ?></div>
-                <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages scannées</div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $wpcp_inc_total ) ); ?></div>
+                <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages scannees</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #46b450;"><?php echo number_format_i18n( $inc_with ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #46b450;"><?php echo esc_html( number_format_i18n( $wpcp_inc_with ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages avec liens entrants</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #dc3232;"><?php echo number_format_i18n( $inc_without ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #dc3232;"><?php echo esc_html( number_format_i18n( $wpcp_inc_without ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages orphelines (0 lien entrant)</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $inc_total_links ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $wpcp_inc_total_links ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Total liens entrants</div>
             </div>
         <?php else: ?>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $stats['total_internal_links'] ); ?></div>
-                <div style="color: #646970; font-size: 13px; margin-top: 5px;">Liens internes trouvés</div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $stats['total_internal_links'] ) ); ?></div>
+                <div style="color: #646970; font-size: 13px; margin-top: 5px;">Liens internes trouves</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo number_format_i18n( $stats['posts_scanned_internal'] ); ?></div>
-                <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages/articles scannés</div>
+                <div style="font-size: 28px; font-weight: 600; color: #2271b1;"><?php echo esc_html( number_format_i18n( $stats['posts_scanned_internal'] ) ); ?></div>
+                <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages/articles scannes</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #dc3232;"><?php echo number_format_i18n( $stats['posts_without_internal'] ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #dc3232;"><?php echo esc_html( number_format_i18n( $stats['posts_without_internal'] ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Pages sans liens internes</div>
             </div>
             <div class="olm-stat-box" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 15px 20px; flex: 1; min-width: 200px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <div style="font-size: 28px; font-weight: 600; color: #50575e;"><?php echo number_format_i18n( $stats['total_posts_site'] ); ?></div>
+                <div style="font-size: 28px; font-weight: 600; color: #50575e;"><?php echo esc_html( number_format_i18n( $stats['total_posts_site'] ) ); ?></div>
                 <div style="color: #646970; font-size: 13px; margin-top: 5px;">Total pages/articles sur le site</div>
             </div>
         <?php endif; ?>
     </div>
 
-    <?php if ( $active_tab == 'traffic' && isset( $traffic_total ) && $traffic_total > 0 ): ?>
+    <?php if ( $wpcp_active_tab == 'traffic' && isset( $wpcp_traffic_total ) && $wpcp_traffic_total > 0 ): ?>
     <!-- Graphique Impressions -->
     <div style="margin: 0 0 25px 0; background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 20px; box-shadow: 0 1px 1px rgba(0,0,0,.04); max-width: 500px;">
-        <h3 style="margin: 0 0 15px 0; font-size: 14px; color: #1d2327;">Répartition des pages par impressions</h3>
+        <h3 style="margin: 0 0 15px 0; font-size: 14px; color: #1d2327;">Repartition des pages par impressions</h3>
         <div style="display: flex; align-items: center; gap: 20px;">
             <!-- Barre horizontale -->
             <div style="flex: 1;">
                 <div style="display: flex; height: 30px; border-radius: 4px; overflow: hidden; background: #f0f0f1;">
-                    <?php if ( $pct_with > 0 ): ?>
-                    <div style="width: <?php echo $pct_with; ?>%; background: #46b450; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; min-width: 35px;">
-                        <?php echo $pct_with; ?>%
+                    <?php if ( $wpcp_pct_with > 0 ): ?>
+                    <div style="width: <?php echo esc_attr( $wpcp_pct_with ); ?>%; background: #46b450; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; min-width: 35px;">
+                        <?php echo esc_html( $wpcp_pct_with ); ?>%
                     </div>
                     <?php endif; ?>
-                    <?php if ( $pct_without > 0 ): ?>
-                    <div style="width: <?php echo $pct_without; ?>%; background: #dc3232; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; min-width: 35px;">
-                        <?php echo $pct_without; ?>%
+                    <?php if ( $wpcp_pct_without > 0 ): ?>
+                    <div style="width: <?php echo esc_attr( $wpcp_pct_without ); ?>%; background: #dc3232; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; min-width: 35px;">
+                        <?php echo esc_html( $wpcp_pct_without ); ?>%
                     </div>
                     <?php endif; ?>
                 </div>
-                <!-- Légende -->
+                <!-- Legende -->
                 <div style="display: flex; gap: 20px; margin-top: 10px; font-size: 12px; color: #646970;">
                     <div style="display: flex; align-items: center; gap: 5px;">
                         <span style="display: inline-block; width: 12px; height: 12px; background: #46b450; border-radius: 2px;"></span>
-                        Avec impressions (<?php echo number_format_i18n( $traffic_with ); ?>)
+                        Avec impressions (<?php echo esc_html( number_format_i18n( $wpcp_traffic_with ) ); ?>)
                     </div>
                     <div style="display: flex; align-items: center; gap: 5px;">
                         <span style="display: inline-block; width: 12px; height: 12px; background: #dc3232; border-radius: 2px;"></span>
-                        Sans impressions (<?php echo number_format_i18n( $traffic_without ); ?>)
+                        Sans impressions (<?php echo esc_html( number_format_i18n( $wpcp_traffic_without ) ); ?>)
                     </div>
                 </div>
             </div>
@@ -171,33 +176,33 @@
     </div>
     <?php endif; ?>
 
-    <?php if ( $active_tab == 'incoming' && isset( $inc_total ) && $inc_total > 0 ): ?>
+    <?php if ( $wpcp_active_tab == 'incoming' && isset( $wpcp_inc_total ) && $wpcp_inc_total > 0 ): ?>
     <!-- Graphique Liens entrants -->
     <div style="margin: 0 0 25px 0; background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 20px; box-shadow: 0 1px 1px rgba(0,0,0,.04); max-width: 500px;">
-        <h3 style="margin: 0 0 15px 0; font-size: 14px; color: #1d2327;">Répartition des pages par liens entrants</h3>
+        <h3 style="margin: 0 0 15px 0; font-size: 14px; color: #1d2327;">Repartition des pages par liens entrants</h3>
         <div style="display: flex; align-items: center; gap: 20px;">
             <div style="flex: 1;">
                 <div style="display: flex; height: 30px; border-radius: 4px; overflow: hidden; background: #f0f0f1;">
-                    <?php if ( $inc_pct_with > 0 ): ?>
-                    <div style="width: <?php echo $inc_pct_with; ?>%; background: #46b450; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; min-width: 35px;">
-                        <?php echo $inc_pct_with; ?>%
+                    <?php if ( $wpcp_inc_pct_with > 0 ): ?>
+                    <div style="width: <?php echo esc_attr( $wpcp_inc_pct_with ); ?>%; background: #46b450; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; min-width: 35px;">
+                        <?php echo esc_html( $wpcp_inc_pct_with ); ?>%
                     </div>
                     <?php endif; ?>
-                    <?php if ( $inc_pct_without > 0 ): ?>
-                    <div style="width: <?php echo $inc_pct_without; ?>%; background: #dc3232; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; min-width: 35px;">
-                        <?php echo $inc_pct_without; ?>%
+                    <?php if ( $wpcp_inc_pct_without > 0 ): ?>
+                    <div style="width: <?php echo esc_attr( $wpcp_inc_pct_without ); ?>%; background: #dc3232; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; min-width: 35px;">
+                        <?php echo esc_html( $wpcp_inc_pct_without ); ?>%
                     </div>
                     <?php endif; ?>
                 </div>
-                <!-- Légende -->
+                <!-- Legende -->
                 <div style="display: flex; gap: 20px; margin-top: 10px; font-size: 12px; color: #646970;">
                     <div style="display: flex; align-items: center; gap: 5px;">
                         <span style="display: inline-block; width: 12px; height: 12px; background: #46b450; border-radius: 2px;"></span>
-                        Avec liens entrants (<?php echo number_format_i18n( $inc_with ); ?>)
+                        Avec liens entrants (<?php echo esc_html( number_format_i18n( $wpcp_inc_with ) ); ?>)
                     </div>
                     <div style="display: flex; align-items: center; gap: 5px;">
                         <span style="display: inline-block; width: 12px; height: 12px; background: #dc3232; border-radius: 2px;"></span>
-                        Pages orphelines (<?php echo number_format_i18n( $inc_without ); ?>)
+                        Pages orphelines (<?php echo esc_html( number_format_i18n( $wpcp_inc_without ) ); ?>)
                     </div>
                 </div>
             </div>
@@ -205,7 +210,7 @@
     </div>
     <?php endif; ?>
 
-    <?php if ( $active_tab == 'outbound' ): ?>
+    <?php if ( $wpcp_active_tab == 'outbound' ): ?>
         <div style="margin: 20px 0;">
             <button id="olm-start-scan" class="button button-primary">Lancer un nouveau scan des liens sortants</button>
             <button id="olm-purge-and-scan" class="button" style="margin-left: 10px;">Purger et rescanner</button>
@@ -244,7 +249,7 @@
                 ?>
             </form>
         </div>
-    <?php elseif ( $active_tab == 'internal' ): ?>
+    <?php elseif ( $wpcp_active_tab == 'internal' ): ?>
         <div style="margin: 20px 0;">
             <button id="olm-start-internal-scan" class="button button-primary">Lancer un nouveau scan des liens internes</button>
             <div class="olm-internal-scan-progress-bar">
@@ -268,7 +273,7 @@
                 ?>
             </form>
         </div>
-    <?php elseif ( $active_tab == 'incoming' ): ?>
+    <?php elseif ( $wpcp_active_tab == 'incoming' ): ?>
         <div style="margin: 20px 0;">
             <h2>Liens entrants</h2>
             <p class="description">Identifiez les pages orphelines (sans aucun lien interne pointant vers elles). Ces pages sont difficiles à trouver pour les moteurs de recherche et les visiteurs.</p>
@@ -292,7 +297,7 @@
                 ?>
             </form>
         </div>
-    <?php elseif ( $active_tab == 'traffic' ): ?>
+    <?php elseif ( $wpcp_active_tab == 'traffic' ): ?>
         <div style="margin: 20px 0;">
             <h2>Trafic des Pages</h2>
             <p class="description">Consultez les statistiques de trafic de vos pages (Impressions, Clics, Utilisateurs, Sessions).</p>
@@ -348,23 +353,24 @@
             </div>
         </div>
 
-    <?php elseif ( $active_tab == 'settings' ): ?>
+    <?php elseif ( $wpcp_active_tab == 'settings' ): ?>
         <div style="margin: 20px 0;">
             <h2>Paramètres du scanner</h2>
 
             <?php
             // Afficher message de confirmation
             if ( isset( $_GET['settings-updated'] ) ) {
-                echo '<div class="notice notice-success is-dismissible"><p>Paramètres enregistrés avec succès.</p></div>';
+                echo '<div class="notice notice-success is-dismissible"><p>Parametres enregistres avec succes.</p></div>';
             }
 
             // Messages Google Auth
             if ( isset( $_GET['google_auth'] ) ) {
-                if ( $_GET['google_auth'] == 'success' ) {
-                    echo '<div class="notice notice-success is-dismissible"><p><strong>✓ Connecté à Google avec succès !</strong> Vous pouvez maintenant synchroniser vos données dans l\'onglet Trafic Page.</p></div>';
-                } elseif ( $_GET['google_auth'] == 'error' ) {
-                    $error_msg = isset( $_GET['error_message'] ) ? urldecode( $_GET['error_message'] ) : 'Erreur inconnue';
-                    echo '<div class="notice notice-error is-dismissible"><p><strong>✗ Erreur de connexion à Google:</strong> ' . esc_html( $error_msg ) . '</p></div>';
+                $wpcp_google_auth = sanitize_text_field( wp_unslash( $_GET['google_auth'] ) );
+                if ( $wpcp_google_auth === 'success' ) {
+                    echo '<div class="notice notice-success is-dismissible"><p><strong>Connecte a Google avec succes !</strong> Vous pouvez maintenant synchroniser vos donnees dans l\'onglet Trafic Page.</p></div>';
+                } elseif ( $wpcp_google_auth === 'error' ) {
+                    $wpcp_error_msg = isset( $_GET['error_message'] ) ? sanitize_text_field( wp_unslash( $_GET['error_message'] ) ) : 'Erreur inconnue';
+                    echo '<div class="notice notice-error is-dismissible"><p><strong>Erreur de connexion a Google:</strong> ' . esc_html( $wpcp_error_msg ) . '</p></div>';
                 }
             }
             ?>

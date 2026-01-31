@@ -1,4 +1,4 @@
-=== WP Content Pruning ===
+=== Content Pruning ===
 Contributors: baptisterey
 Tags: seo, links, content pruning, google search console, internal links
 Requires at least: 5.0
@@ -12,7 +12,7 @@ Outil complet d'elagage et d'optimisation de contenu pour WordPress. Analysez vo
 
 == Description ==
 
-WP Content Pruning (WPCP) est un plugin WordPress complet pour analyser et optimiser votre contenu. Il vous aide a identifier les pages sous-performantes, gerer vos liens sortants et internes, detecter les liens casses et prendre des decisions eclairees pour ameliorer votre SEO.
+Content Pruning est un plugin WordPress complet pour analyser et optimiser votre contenu. Il vous aide a identifier les pages sous-performantes, gerer vos liens sortants et internes, detecter les liens casses et prendre des decisions eclairees pour ameliorer votre SEO.
 
 = Fonctionnalites principales =
 
